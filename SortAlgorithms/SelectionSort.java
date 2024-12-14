@@ -2,20 +2,23 @@ import java.util.Arrays;
 
 public class SelectionSort {
     public static void main(String ... args) {
-        Integer[] arr = new Integer[] {6, 0, 10, 11, 2, 1, -3, -1, 0};
-        showArray(arr);
+        Integer[] arr = new Integer[] {5, 7, 1, 3, 0, -3, 1, 5, 10};
         sort(arr);
         showArray(arr);
     }
 
-    public static <T extends Comparable<T>> void sort(T[] array) {
-        int arrayLength = array.length;
-        for (int i = 0; i < arrayLength; i++) {
-            int minimumIndex = i;
-            for (int j = i; j < arrayLength; j++) {
-                if (less(array[j], array[minimumIndex])) minimumIndex = j;
+    public static <T extends Comparable<T>> void sort(T[] arr) {
+        int arrLength = arr.length;
+        for (int i = 0; i < arrLength; i++) {
+            int minIndex = i;
+            T minValue = arr[minIndex];
+            for (int j = i + 1; j < arrLength; j++) {
+                if (less(arr[j], minValue)) {
+                    minValue = arr[j];
+                    minIndex = j;
+                }
             }
-            swap(array, i, minimumIndex);
+            swap(arr, i, minIndex);
         }
     }
 
@@ -23,15 +26,14 @@ public class SelectionSort {
         return item1.compareTo(item2) < 0;
     }
 
-    private static <T extends Comparable<T>> void swap(T[] array, int index1, int index2) {
-        T temp = array[index1];
-        array[index1] = array[index2];
-        array[index2] = temp;
+    private static <T extends Comparable<T>> void swap(T[] arr, int index1, int index2) {
+        T temp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = temp;
     }
 
-    private static <T extends Comparable<T>> void showArray(T[] array) {
-        System.out.print("[");
-        Arrays.stream(array).forEach(e -> System.out.print(e + " "));
-        System.out.println("]");
+    private static <T extends Comparable<T>> void showArray(T[] arr) {
+        Arrays.stream(arr).forEach(e -> System.out.print(e + " "));
+        System.out.println();
     }
 }
